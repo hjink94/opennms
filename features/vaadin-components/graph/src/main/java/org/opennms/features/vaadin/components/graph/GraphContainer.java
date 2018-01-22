@@ -30,6 +30,7 @@ package org.opennms.features.vaadin.components.graph;
 import java.util.Date;
 
 import com.vaadin.annotations.JavaScript;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 
 /**
@@ -46,11 +47,14 @@ import com.vaadin.ui.AbstractJavaScriptComponent;
 // Only resources required to bootstrap graph.js should be included here - others should
 // be loaded dynamically.
 @JavaScript({
-    "require.js",
-    "global.js",
-    "jquery.js",
-    "graph.js",
+    "theme://../opennms/assets/manifest.min.js",
+    "theme://../opennms/assets/vendor.min.js",
+    "theme://../opennms/assets/global.min.js",
+    "theme://../opennms/assets/onms-graph.min.js",
     "graphcontainer-connector.js"
+})
+@StyleSheet({
+    "theme://../opennms/assets/vendor.css"
 })
 public class GraphContainer extends AbstractJavaScriptComponent {
     private static final long serialVersionUID = 3363043899957566308L;

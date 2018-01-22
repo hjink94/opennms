@@ -39,12 +39,10 @@
   <jsp:param name="headTitle" value="Asset" />
   <jsp:param name="breadcrumb" value="<a href ='asset/index.jsp'>Assets</a>" />
   <jsp:param name="breadcrumb" value="Modify" />
-  <jsp:param name="link" value='<link rel="stylesheet" type="text/css" href="lib/angular-growl-v2/build/angular-growl.css" />' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/angular/angular.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/angular-growl-v2/build/angular-growl.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/bootbox/bootbox.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="js/onms-assets/app.js"></script>' />
+</jsp:include>
+
+<jsp:include page="/assets/load-assets.jsp" flush="false">
+  <jsp:param name="asset" value="onms-assets" />
 </jsp:include>
 
 <%

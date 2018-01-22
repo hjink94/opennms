@@ -21,48 +21,6 @@
     <name>OpenNMS :: Features :: Vaadin :: Components :: Graph</name>
     <packaging>bundle</packaging>
 
-    <build>
-      <plugins>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.7</version>
-          <executions>
-            <execution>
-              <id>copy-resources</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${basedir}/target/classes/org/opennms/features/vaadin/components/graph</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>../../../opennms-webapp/src/main/webapp/js</directory>
-                    <includes>
-                      <include>graph.js</include>
-                      <include>global.js</include>
-                    </includes>
-                  </resource>
-                  <resource>
-                    <directory>../../../opennms-webapp/src/main/webapp/lib/jquery/dist</directory>
-                    <includes>
-                      <include>jquery.js</include>
-                    </includes>
-                  </resource>
-                  <resource>
-                    <directory>../../../opennms-webapp/src/main/webapp/lib/requirejs</directory>
-                    <includes>
-                      <include>require.js</include>
-                    </includes>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.opennms.features</groupId>

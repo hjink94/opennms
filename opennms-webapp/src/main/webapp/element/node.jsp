@@ -273,11 +273,13 @@
   <jsp:param name="breadcrumb" value="<a href='element/index.jsp'>Search</a>" />
   <jsp:param name="breadcrumb" value="Node" />
   <jsp:param name="enableExtJS" value="false"/>
+</jsp:include>
 
-  <jsp:param name="link" value='<link rel="stylesheet" type="text/css" href="js/onms-interfaces/styles.css" />' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/angular/angular.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>' />
-  <jsp:param name="script" value='<script type="text/javascript" src="js/onms-interfaces/app.js"></script>' />
+<jsp:include page="/assets/load-assets.jsp" flush="false">
+    <jsp:param name="asset" value="angular-js" />
+</jsp:include>
+<jsp:include page="/assets/load-assets.jsp" flush="false">
+    <jsp:param name="asset" value="onms-interfaces-app" />
 </jsp:include>
 
 <script type="text/javascript">

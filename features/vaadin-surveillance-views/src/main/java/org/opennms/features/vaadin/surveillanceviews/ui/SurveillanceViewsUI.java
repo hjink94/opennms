@@ -36,6 +36,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.vaadin.annotations.JavaScript;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.Page;
@@ -51,7 +52,14 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @Theme("opennms")
 @Title("OpenNMS Surveillance Views")
-@JavaScript({"../../../lib/jquery/dist/jquery.js","../../../lib/bootstrap/dist/js/bootstrap.js"})
+@JavaScript({
+    "theme://assets/manifest.min.js",
+    "theme://assets/vendor.min.js",
+    "theme://assets/global.min.js"
+})
+@StyleSheet({
+    "theme://assets/vendor.css"
+})
 public class SurveillanceViewsUI extends UI {
     /**
      * the logger instance

@@ -112,6 +112,7 @@ import org.springframework.transaction.support.TransactionOperations;
 import com.github.wolfie.refresher.Refresher;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
@@ -145,8 +146,15 @@ import com.vaadin.ui.Window;
 @Theme("topo_default")
 @Title("OpenNMS Topology Map")
 @PreserveOnRefresh
-@StyleSheet(value = {
-        "theme://ionicons/css/ionicons.css"
+@JavaScript({
+    "theme://../opennms/assets/manifest.min.js",
+    "theme://../opennms/assets/vendor.min.js",
+    "theme://../opennms/assets/global.min.js",
+    "theme://../opennms/assets/ionicons-css.min.js",
+    "theme://../opennms/assets/d3-js.min.js"
+})
+@StyleSheet({
+    "theme://../opennms/assets/vendor.css"
 })
 public class TopologyUI extends UI implements MenuUpdateListener, ContextMenuHandler, WidgetUpdateListener, WidgetContext, UriFragmentChangedListener, GraphContainer.ChangeListener, MapViewManagerListener, VertexUpdateListener, SelectionListener, VerticesUpdateManager.VerticesUpdateListener {
 

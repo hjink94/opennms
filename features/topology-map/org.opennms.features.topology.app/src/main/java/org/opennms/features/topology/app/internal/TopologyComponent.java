@@ -54,14 +54,12 @@ import org.opennms.features.topology.app.internal.menu.MenuUpdateListener;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.annotations.JavaScript;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.ui.AbstractComponent;
 
-@JavaScript({"theme://js/d3.js"})
 public class TopologyComponent extends AbstractComponent implements ChangeListener, ValueChangeListener, MapViewManagerListener {
 
     TopologyComponentServerRpc m_rpc = new TopologyComponentServerRpc(){
