@@ -722,7 +722,7 @@
               <% } %>
             <% } %>
             <td valign="middle">
-              <% alarms[i].getEventParameters().toString() %>
+              <% alarms[i].getEventParameters().toString(); %>
             </td>
             <td valign="middle">
               oh wow here's another one
