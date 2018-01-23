@@ -474,17 +474,17 @@
             <th width="6%">
               <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
             </th>
-			<th>
+			<th width="6%">
               <%=this.makeSortLink(callback, parms, SortStyle.NODE,      SortStyle.REVERSE_NODE,      "node",      "Node",      favorite )%>
               <c:if test="${param.display == 'long'}">
               /
               <%=this.makeSortLink(callback, parms, SortStyle.INTERFACE, SortStyle.REVERSE_INTERFACE, "interface", "Interface", favorite )%>
               </th>
-              <th>
+              <th width="6%">
               <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Here is the Node Location", favorite )%>
               </th>
-              <th>
-              "This is a test column"
+              <th width="6%">
+              This is a test column
               </th>
               <th>
               <%=this.makeSortLink(callback, parms, SortStyle.SERVICE,   SortStyle.REVERSE_SERVICE,   "service",   "Service",   favorite )%>
