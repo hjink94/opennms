@@ -35,6 +35,7 @@
 <%@page import="org.opennms.core.utils.WebSecurityUtils" %>
 <%@page import="org.opennms.netmgt.model.OnmsAlarm" %>
 <%@page import="org.opennms.netmgt.model.OnmsEvent" %>
+<%@page import="org.opennms.netmgt.model.OnmsEventParameter" %>
 <%@page import="org.opennms.netmgt.model.OnmsFilterFavorite"%>
 <%@page import="org.opennms.web.alarm.AcknowledgeType" %>
 <%@page import="org.opennms.web.alarm.SortStyle" %>
@@ -471,23 +472,13 @@
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
             </th>
-            <th width="6%">
+            <th width="5%">
               <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
-            </th>
-			<th>
-              <%=this.makeSortLink(callback, parms, SortStyle.NODE,      SortStyle.REVERSE_NODE,      "node",      "Node",      favorite )%>
-              <c:if test="${param.display == 'long'}">
-              /
-              <%=this.makeSortLink(callback, parms, SortStyle.INTERFACE, SortStyle.REVERSE_INTERFACE, "interface", "Interface", favorite )%>
               </th>
-              <th>
-              <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Node Location", favorite )%>
-              </th>
-              <th>
-              <%=this.makeSortLink(callback, parms, SortStyle.SERVICE,   SortStyle.REVERSE_SERVICE,   "service",   "Service",   favorite )%>
-              </c:if>
-            </th>
-			<th width="3%">
+          <th width="15%">
+              <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "Subject" ,       favorite )%>
+          </th>
+      <th width="3%">
               <%=this.makeSortLink(callback, parms, SortStyle.COUNT,  SortStyle.REVERSE_COUNT,  "count",  "Count", favorite  )%>
             </th>
 			<th <% if ("long".equals(request.getParameter("display"))) { %>width="13%"<% } %>>
@@ -496,10 +487,16 @@
               /
               <%=this.makeSortLink(callback, parms, SortStyle.FIRSTEVENTTIME,  SortStyle.REVERSE_FIRSTEVENTTIME,  "firsteventtime",  "First Event Time", favorite  )%>
               </th>
-              <th>
-              <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Source Location", favorite  )%>
-              <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
+              <th width="8%">
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Source", favorite  )%>
               </th>
+              <th width="8%">
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Resource", favorite  )%>
+              </th>
+              <th width="8%">
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Metric", favorite  )%>
+              </th>              
+              <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
               <th>
               <%=this.makeSortLink(callback, parms, SortStyle.ACKUSER,  SortStyle.REVERSE_ACKUSER,  "ackuser",  "Acknowledged By", favorite  )%>
               <% } %>
@@ -599,80 +596,10 @@
               <a href="<%=this.makeLink(callback, parms, new NegativeSeverityFilter(alarms[i].getSeverity()), true, favorite)%>" class="filterLink" title="Do not show events with this severity">${addNegativeFilter}</a>
             <% } %>
             </nobr>
-          </td>
+          </td>        
           <td>
-	    <% if(alarms[i].getNodeId() != null && alarms[i].getNodeLabel()!= null ) { %>
-              <% Filter nodeFilter = new NodeFilter(alarms[i].getNodeId(), getServletContext()); %>             
-              <% String[] labels = this.getNodeLabels( alarms[i].getNodeLabel() ); %>
-              <a href="element/node.jsp?node=<%=alarms[i].getNodeId()%>" title="<%=labels[1]%>"><%=labels[0]%></a>
-                    
-              <% if( !parms.getFilters().contains(nodeFilter) ) { %>
-                <nobr>
-                  <a href="<%=this.makeLink(callback, parms, nodeFilter, true, favorite)%>" class="filterLink" title="Show only alarms on this node">${addPositiveFilter}</a>
-                  <a href="<%=this.makeLink(callback, parms, new NegativeNodeFilter(alarms[i].getNodeId(), getServletContext()), true, favorite)%>" class="filterLink" title="Do not show alarms for this node">${addNegativeFilter}</a>
-                </nobr>
-              <% } %>
-            <% } else { %>
-              &nbsp;
-            <% } %>
-          <c:if test="${param.display == 'long'}">
-		    <br />
-            <% if(alarms[i].getIpAddr() != null ) { %>
-              <% Filter intfFilter = new InterfaceFilter(alarms[i].getIpAddr()); %>
-              <% if( alarms[i].getNodeId() != null ) { %>
-                <c:url var="interfaceLink" value="element/interface.jsp">
-                  <c:param name="node" value="<%=String.valueOf(alarms[i].getNodeId())%>"/>
-                  <c:param name="intf" value="<%=InetAddressUtils.str(alarms[i].getIpAddr())%>"/>
-                </c:url>
-                <a href="<c:out value="${interfaceLink}"/>" title="More info on this interface"><%=InetAddressUtils.str(alarms[i].getIpAddr())%></a>
-              <% } else { %>
-                <%=InetAddressUtils.str(alarms[i].getIpAddr())%>
-              <% } %>
-              <% if( !parms.getFilters().contains(intfFilter) ) { %>
-                <nobr>
-                  <a href="<%=this.makeLink(callback, parms, intfFilter, true, favorite)%>" class="filterLink" title="Show only alarms on this IP address">${addPositiveFilter}</a>
-                  <a href="<%=this.makeLink(callback, parms, new NegativeInterfaceFilter(alarms[i].getIpAddr()), true, favorite)%>" class="filterLink" title="Do not show alarms for this interface">${addNegativeFilter}</a>
-                </nobr>
-              <% } %>
-            <% } else { %>
-              &nbsp;
-            <% } %>
-            </td>
-            <td>
-            <% if (alarms[i].getNodeId() != null && alarms[i].getNode() != null && alarms[i].getNode().getLocation() != null) { %>
-              <% String location = alarms[i].getNode().getLocation().getLocationName(); %>
-              <% Filter locationFilter = new NodeLocationFilter(location); %>
-              <a href="element/node.jsp?node=<%=alarms[i].getNodeId()%>"><%= location %></a>
-              <% if( !parms.getFilters().contains(locationFilter) ) { %>
-                <nobr>
-                  <a href="<%=this.makeLink(callback, parms, locationFilter, true, favorite)%>" class="filterLink" title="Show only alarms for this node location">${addPositiveFilter}</a>
-                  <a href="<%=this.makeLink(callback, parms, new NegativeNodeLocationFilter(location), true, favorite)%>" class="filterLink" title="Do not show alarms for this node location">${addNegativeFilter}</a>
-                </nobr>
-              <% } %>
-            <% } %>
-            </td>
-            <td>
-            <% if(alarms[i].getServiceType() != null && !"".equals(alarms[i].getServiceType().getName())) { %>
-              <% Filter serviceFilter = new ServiceFilter(alarms[i].getServiceType().getId(), getServletContext()); %>
-              <% if( alarms[i].getNodeId() != null && alarms[i].getIpAddr() != null ) { %>
-                <c:url var="serviceLink" value="element/service.jsp">
-                  <c:param name="node" value="<%=String.valueOf(alarms[i].getNodeId())%>"/>
-                  <c:param name="intf" value="<%=InetAddressUtils.str(alarms[i].getIpAddr())%>"/>
-                  <c:param name="service" value="<%=String.valueOf(alarms[i].getServiceType().getId())%>"/>
-                </c:url>
-                <a href="<c:out value="${serviceLink}"/>" title="More info on this service"><c:out value="<%=alarms[i].getServiceType().getName()%>"/></a>
-              <% } else { %>
-                <c:out value="<%=alarms[i].getServiceType().getName()%>"/>
-              <% } %>
-              <% if( !parms.getFilters().contains( serviceFilter )) { %>
-                <nobr>
-                  <a href="<%=this.makeLink(callback, parms, serviceFilter, true, favorite)%>" class="filterLink" title="Show only alarms with this service type">${addPositiveFilter}</a>
-                  <a href="<%=this.makeLink(callback, parms, new NegativeServiceFilter(alarms[i].getServiceType().getId(), getServletContext()), true, favorite)%>" class="filterLink" title="Do not show alarms for this service">${addNegativeFilter}</a>
-                </nobr>
-              <% } %>                            
-            <% } %>
-            </c:if>
-          </td>          
+            <%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%>
+          </td>   
           <td valign="middle">
 	    <% if(alarms[i].getId() > 0 ) { %>           
                 <nobr>
@@ -698,20 +625,32 @@
               <a href="<%=this.makeLink(callback, parms, new BeforeFirstEventTimeFilter(alarms[i].getFirstEventTime()), true, favorite)%>" class="filterLink" title="Only show alarms occurring before this one">${addBeforeFilter}</a>
             </nobr>
           </td>
-          <td>
-            <% if (alarms[i].getDistPoller() != null && alarms[i].getLastEvent() != null) { %>
-              <% String location = alarms[i].getDistPoller().getLocation(); %>
-              <% Filter locationFilter = new LocationFilter(location); %>
-              <span title="Event source location <%= location %>"><a href="event/detail.htm?id=<%= alarms[i].getLastEvent().getId()%>">
-                <%= location %>
-              </a></span>
-              <% if( !parms.getFilters().contains(locationFilter) ) { %>
-                <nobr>
-                  <a href="<%=this.makeLink(callback, parms, locationFilter, true, favorite)%>" class="filterLink" title="Show only alarms for this event source location">${addPositiveFilter}</a>
-                  <a href="<%=this.makeLink(callback, parms, new NegativeLocationFilter(location), true, favorite)%>" class="filterLink" title="Do not show alarms for this event source location">${addNegativeFilter}</a>
-                </nobr>
-              <% } %>
-            <% } %>
+
+            <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
+            <% String sourceParam = ""; %>
+            <% String resourceParam = ""; %>
+            <% String metricParam = ""; %>
+            <%
+              for(int j = 0; j < eventParameters.size(); j++) {
+                OnmsEventParameter eventParam = eventParameters.get(j);
+                if(eventParam.getName().equalsIgnoreCase("source")) {
+                  sourceParam = eventParam.getValue();
+                } else if(eventParam.getName().equalsIgnoreCase("resource")) {
+                  resourceParam = eventParam.getValue();
+                } else if(eventParam.getName().equalsIgnoreCase("metric")) {
+                  metricParam = eventParam.getValue();
+                }
+              }
+            %>
+
+            <td valign="middle">
+              <%= sourceParam %>
+            </td>
+            <td valign="middle">
+              <%= resourceParam %>
+            </td>
+            <td valign="middle">
+              <%= metricParam %>
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
           </td>
           <td>
@@ -735,7 +674,7 @@
         </tr>
         <c:if test="${param.display == 'long'}">
         <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
-          <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td>
+          <td colspan="7" class="divider" style="border-top: none"></td>
         </tr> 
         </c:if>
       <% } /*end for*/%>
