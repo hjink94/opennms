@@ -480,10 +480,10 @@
               /
               <%=this.makeSortLink(callback, parms, SortStyle.INTERFACE, SortStyle.REVERSE_INTERFACE, "interface", "Interface", favorite )%>
               </th>
-              <th width="6%">
-              <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Node", favorite )%>
+              <th>
+              <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Node Location", favorite )%>
               </th>
-              <th width="6%">
+              <th width="8%">
               Hi Harrison :)
               </th>
               <th>
