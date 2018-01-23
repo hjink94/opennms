@@ -484,6 +484,9 @@
               <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Here is the Node Location", favorite )%>
               </th>
               <th>
+              "This is a test column"
+              </th>
+              <th>
               <%=this.makeSortLink(callback, parms, SortStyle.SERVICE,   SortStyle.REVERSE_SERVICE,   "service",   "Service",   favorite )%>
               </c:if>
             </th>
