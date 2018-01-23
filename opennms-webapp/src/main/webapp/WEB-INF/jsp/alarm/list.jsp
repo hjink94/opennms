@@ -480,7 +480,7 @@
               /
               <%=this.makeSortLink(callback, parms, SortStyle.INTERFACE, SortStyle.REVERSE_INTERFACE, "interface", "Interface", favorite )%>
               </th>
-              <th>
+              <th width="5%">
               <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Node Location", favorite )%>
               </th>
               <th width="5%">
@@ -721,6 +721,14 @@
                 </nobr>
               <% } %>
             <% } %>
+            <td valign="middle">
+              idk man here's some table data
+            </td>
+            <td valign="middle">
+              oh wow here's another one
+            </td>
+            <td valign="middle">
+              more data :o
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
           </td>
           <td>
