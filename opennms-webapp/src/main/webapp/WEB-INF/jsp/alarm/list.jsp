@@ -500,10 +500,10 @@
               <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Source Location", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Parms", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Parm Name", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Some Column", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Parm Value", favorite  )%>
               </th>
               <th width="8%">
                 <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Another Column", favorite  )%>
@@ -725,7 +725,7 @@
               <%=alarms[i].getEventParameters().get(0).getName()%>
             </td>
             <td valign="middle">
-              oh wow here's another one
+              <%=alarms[i].getEventParameters().get(0).getValue()%>
             </td>
             <td valign="middle">
               more data :o
