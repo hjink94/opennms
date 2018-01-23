@@ -483,7 +483,7 @@
               <th>
               <%=this.makeSortLink(callback, parms, SortStyle.NODE_LOCATION, SortStyle.REVERSE_NODE_LOCATION, "nodelocation", "Node Location", favorite )%>
               </th>
-              <th>
+              <th width="5%">
               <%=this.makeSortLink(callback, parms, SortStyle.SERVICE,   SortStyle.REVERSE_SERVICE,   "service",   "Service",   favorite )%>
               </c:if>
             </th>
@@ -501,7 +501,13 @@
               </th>
               <th width="8%">
                 <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Will This Work :o", favorite  )%>
-              </th>                
+              </th>
+              <th width="8%">
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Some Column", favorite  )%>
+              </th>
+              <th width="8%">
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Another Column", favorite  )%>
+              </th>              
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
               <th>
               <%=this.makeSortLink(callback, parms, SortStyle.ACKUSER,  SortStyle.REVERSE_ACKUSER,  "ackuser",  "Acknowledged By", favorite  )%>
