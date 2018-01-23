@@ -500,10 +500,10 @@
               <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Source Location", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Parm Name", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Hello Parameter", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Event Parm Value", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Resulting Value", favorite  )%>
               </th>
               <th width="8%">
                 <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Another Column", favorite  )%>
@@ -721,11 +721,26 @@
                 </nobr>
               <% } %>
             <% } %>
+            </td>
+
+            <% ArrayList eventParameters = alarms[i].getEventParameters(); %>
+            <% String helloParam = \"This should change\" %>
+            <% String goodbyeParam = \"This should change\" %>
+            <%
+              for(int i = 0; i < eventParameters.length; i++) {
+                OnmsEventParameter eventParam = eventParameters.get(i);
+                if(eventParam.getName().equals(\"Hello\")) {
+                  helloParam = eventParam.getName();
+                  goodbyeParam = eventParam.getValue();
+                }
+              }
+            %>
+
             <td valign="middle">
-              <%=alarms[i].getEventParameters().get(0).getName()%>
+              <%= helloParam %>
             </td>
             <td valign="middle">
-              <%=alarms[i].getEventParameters().get(0).getValue()%>
+              <%= goodbyeParam %>
             </td>
             <td valign="middle">
               more data :o
