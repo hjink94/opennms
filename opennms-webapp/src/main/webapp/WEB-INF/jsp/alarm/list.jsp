@@ -35,6 +35,7 @@
 <%@page import="org.opennms.core.utils.WebSecurityUtils" %>
 <%@page import="org.opennms.netmgt.model.OnmsAlarm" %>
 <%@page import="org.opennms.netmgt.model.OnmsEvent" %>
+<%@page import="org.opennms.netmgt.model.OnmsEventParameter" %>
 <%@page import="org.opennms.netmgt.model.OnmsFilterFavorite"%>
 <%@page import="org.opennms.web.alarm.AcknowledgeType" %>
 <%@page import="org.opennms.web.alarm.SortStyle" %>
@@ -724,8 +725,8 @@
             </td>
 
             <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
-            <% String helloParam = "This should change" %>
-            <% String goodbyeParam = "This should change" %>
+            <% String helloParam = "This should change"; %>
+            <% String goodbyeParam = "This should change"; %>
             <%
               for(int i = 0; i < eventParameters.length; i++) {
                 OnmsEventParameter eventParam = eventParameters.get(i);
