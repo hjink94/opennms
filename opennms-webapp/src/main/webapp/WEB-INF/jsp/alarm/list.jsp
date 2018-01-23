@@ -728,8 +728,8 @@
             <% String helloParam = "This should change"; %>
             <% String goodbyeParam = "This should change"; %>
             <%
-              for(int i = 0; i < eventParameters.length; i++) {
-                OnmsEventParameter eventParam = eventParameters.get(i);
+              for(int j = 0; j < eventParameters.size(); j++) {
+                OnmsEventParameter eventParam = eventParameters.get(j);
                 if(eventParam.getName().equals("Hello")) {
                   helloParam = eventParam.getName();
                   goodbyeParam = eventParam.getValue();
