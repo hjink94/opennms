@@ -723,13 +723,13 @@
             <% } %>
             </td>
 
-            <% ArrayList eventParameters = alarms[i].getEventParameters(); %>
-            <% String helloParam = \"This should change\" %>
-            <% String goodbyeParam = \"This should change\" %>
+            <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
+            <% String helloParam = "This should change" %>
+            <% String goodbyeParam = "This should change" %>
             <%
               for(int i = 0; i < eventParameters.length; i++) {
                 OnmsEventParameter eventParam = eventParameters.get(i);
-                if(eventParam.getName().equals(\"Hello\")) {
+                if(eventParam.getName().equals("Hello")) {
                   helloParam = eventParam.getName();
                   goodbyeParam = eventParam.getValue();
                 }
