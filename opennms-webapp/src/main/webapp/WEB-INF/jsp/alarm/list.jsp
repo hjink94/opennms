@@ -597,7 +597,9 @@
             <% } %>
             </nobr>
           </td>        
-          <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td>       
+          <td>
+          Subject goes here
+          </td>   
           <td valign="middle">
 	    <% if(alarms[i].getId() > 0 ) { %>           
                 <nobr>
