@@ -472,12 +472,13 @@
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
             </th>
+            <th width="6%">
+              <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
+              </th>
           <th width="10%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "Subject" ,       favorite )%>
           </th>
-            <th width="6%">
-              <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
-			<th width="3%">
+      <th width="3%">
               <%=this.makeSortLink(callback, parms, SortStyle.COUNT,  SortStyle.REVERSE_COUNT,  "count",  "Count", favorite  )%>
             </th>
 			<th <% if ("long".equals(request.getParameter("display"))) { %>width="13%"<% } %>>
@@ -666,9 +667,9 @@
           </c:if>
         </tr>
         <c:if test="${param.display == 'long'}">
-        <!-- <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
-          <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td>
-        </tr>  -->
+        <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
+          <!-- <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td> -->
+        </tr> 
         </c:if>
       <% } /*end for*/%>
 
