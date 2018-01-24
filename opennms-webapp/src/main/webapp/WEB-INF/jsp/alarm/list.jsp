@@ -472,6 +472,9 @@
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
             </th>
+          <th width="10%">
+              <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "Subject" ,       favorite )%>
+          </th>
             <th width="6%">
               <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
 			<th width="3%">
@@ -592,7 +595,8 @@
               <a href="<%=this.makeLink(callback, parms, new NegativeSeverityFilter(alarms[i].getSeverity()), true, favorite)%>" class="filterLink" title="Do not show events with this severity">${addNegativeFilter}</a>
             <% } %>
             </nobr>
-          </td>       
+          </td>        
+          <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td>       
           <td valign="middle">
 	    <% if(alarms[i].getId() > 0 ) { %>           
                 <nobr>
@@ -620,8 +624,8 @@
           </td>
 
             <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
-            <% String helloParam = "This should change"; %>
-            <% String goodbyeParam = "This should change"; %>
+            <% String helloParam = ""; %>
+            <% String goodbyeParam = ""; %>
             <%
               for(int j = 0; j < eventParameters.size(); j++) {
                 OnmsEventParameter eventParam = eventParameters.get(j);
@@ -662,9 +666,9 @@
           </c:if>
         </tr>
         <c:if test="${param.display == 'long'}">
-        <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
+        <!-- <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
           <td colspan="7" class="divider" style="border-top: none"><%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%></td>
-        </tr> 
+        </tr>  -->
         </c:if>
       <% } /*end for*/%>
 
