@@ -472,10 +472,10 @@
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
             </th>
-            <th width="6%">
+            <th width="5%">
               <%=this.makeSortLink(callback, parms, SortStyle.SEVERITY,  SortStyle.REVERSE_SEVERITY,  "severity",  "Severity",  favorite )%>
               </th>
-          <th width="10%">
+          <th width="15%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "Subject" ,       favorite )%>
           </th>
       <th width="3%">
@@ -488,13 +488,13 @@
               <%=this.makeSortLink(callback, parms, SortStyle.FIRSTEVENTTIME,  SortStyle.REVERSE_FIRSTEVENTTIME,  "firsteventtime",  "First Event Time", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Hello Parameter", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Source", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Resulting Value", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Resource", favorite  )%>
               </th>
               <th width="8%">
-                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Another Column", favorite  )%>
+                <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Metric", favorite  )%>
               </th>              
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
               <th>
@@ -627,26 +627,30 @@
           </td>
 
             <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
-            <% String helloParam = ""; %>
-            <% String goodbyeParam = ""; %>
+            <% String sourceParam = ""; %>
+            <% String resourceParam = ""; %>
+            <% String metricParam = ""; %>
             <%
               for(int j = 0; j < eventParameters.size(); j++) {
                 OnmsEventParameter eventParam = eventParameters.get(j);
-                if(eventParam.getName().equals("Hello")) {
-                  helloParam = eventParam.getName();
-                  goodbyeParam = eventParam.getValue();
+                if(eventParam.getName().equalsIgnoreCase("source")) {
+                  sourceParam = eventParam.getValue();
+                } else if(eventParam.getName().equalsIgnoreCase("resource")) {
+                  resourceParam = eventParam.getValue();
+                } else if(eventParam.getName().equalsIgnoreCase("metric")) {
+                  metricParam = eventParam.getValue();
                 }
               }
             %>
 
             <td valign="middle">
-              <%= helloParam %>
+              <%= sourceParam %>
             </td>
             <td valign="middle">
-              <%= goodbyeParam %>
+              <%= resourceParam %>
             </td>
             <td valign="middle">
-              more data :o
+              <%= metricParam %>
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
           </td>
           <td>
