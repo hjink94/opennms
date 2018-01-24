@@ -598,7 +598,7 @@
             </nobr>
           </td>        
           <td>
-          Subject goes here
+            <%=WebSecurityUtils.sanitizeString(alarms[i].getLogMsg(), true)%>
           </td>   
           <td valign="middle">
 	    <% if(alarms[i].getId() > 0 ) { %>           
