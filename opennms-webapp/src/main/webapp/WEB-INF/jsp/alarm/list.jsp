@@ -669,6 +669,9 @@
           </c:if>
         </tr>
         <c:if test="${param.display == 'long'}">
+        <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
+          <td colspan="7" class="divider" style="border-top: none"></td>
+        </tr> 
         </c:if>
       <% } /*end for*/%>
 
