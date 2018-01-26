@@ -477,7 +477,7 @@
         tableRows.add("Is");
         tableRows.add("A");
         tableRows.add("Test");
-      &>
+      %>
 
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
