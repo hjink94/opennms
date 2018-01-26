@@ -654,9 +654,9 @@
               tableRows.add("metric");
 
               List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters();
+              String param = "";
 
               for(String data : tableData) {
-                param = "";
 
                 for(int j = 0; j < eventParameters.size(); j++) {
                   OnmsEventParameter eventParam = eventParameters.get(j);
