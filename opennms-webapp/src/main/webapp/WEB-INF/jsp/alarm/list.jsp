@@ -646,31 +646,35 @@
             </nobr>
           </td>
 
-            <% List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters(); %>
-            <% String sourceParam = ""; %>
-            <% String resourceParam = ""; %>
-            <% String metricParam = ""; %>
+            <!-- ##### TABLE DATA LIST IMPLEMENTED HERE ##### -->
             <%
-              for(int j = 0; j < eventParameters.size(); j++) {
-                OnmsEventParameter eventParam = eventParameters.get(j);
-                if(eventParam.getName().equalsIgnoreCase("source")) {
-                  sourceParam = eventParam.getValue();
-                } else if(eventParam.getName().equalsIgnoreCase("resource")) {
-                  resourceParam = eventParam.getValue();
-                } else if(eventParam.getName().equalsIgnoreCase("metric")) {
-                  metricParam = eventParam.getValue();
-                }
-              }
+              ArrayList<String> tableData = new ArrayList<>();
+              tableRows.add("source");
+              tableRows.add("resource");
+              tableRows.add("metric");
+
+              List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters();
+
+              for(String data : tableData) {
+                param = "";
+
+                for(int j = 0; j < eventParameters.size(); j++) {
+                  OnmsEventParameter eventParam = eventParameters.get(j);
+
+                  if(eventParam.getName().equalsIgnoreCase(data)) {
+                    param = eventParam.getValue();
+                  }
+                } 
             %>
 
-            <td valign="middle">
-              <%= sourceParam %>
-            </td>
-            <td valign="middle">
-              <%= resourceParam %>
-            </td>
-            <td valign="middle">
-              <%= metricParam %>
+              <td valign="middle">
+                <%= param %>
+              </td>
+
+            <%  
+              }
+            %>
+              
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
           </td>
           <td>
