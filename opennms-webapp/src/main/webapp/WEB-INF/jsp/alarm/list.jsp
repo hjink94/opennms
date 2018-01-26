@@ -649,9 +649,9 @@
             <!-- ##### TABLE DATA LIST IMPLEMENTED HERE ##### -->
             <%
               ArrayList<String> tableData = new ArrayList<>();
-              tableRows.add("source");
-              tableRows.add("resource");
-              tableRows.add("metric");
+              tableData.add("source");
+              tableData.add("resource");
+              tableData.add("metric");
 
               List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters();
               String param = "";
@@ -675,6 +675,10 @@
               }
             %>
               
+              <td valign="middle">
+                This should also appear
+              </td>
+
               <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
           </td>
           <td>
