@@ -469,6 +469,16 @@
                         <th width="1%">&nbsp;</th>
                     <% } %>
 
+
+      <!-- ##### TABLE ROW LIST IMPLEMENTED HERE ##### -->
+      <%
+        ArrayList<String> tableRows = new ArrayList<>();
+        tableRows.add("This");
+        tableRows.add("Is");
+        tableRows.add("A");
+        tableRows.add("Test");
+      &>
+
 			<th width="2%">
               <%=this.makeSortLink(callback, parms, SortStyle.ID,        SortStyle.REVERSE_ID,        "id",        "ID" ,       favorite )%>
             </th>
@@ -502,6 +512,16 @@
               <% } %>
               </c:if>
             </th>
+
+            <%
+              for(String row : tableRows) { 
+            %>
+                <th>
+                <%= row %>
+                </th>
+            <%
+              }
+            %>
             <c:if test="${param.display != 'long'}">
 			<th width="56%">Log Msg</th>
 			</c:if>
