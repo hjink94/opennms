@@ -698,6 +698,9 @@ for(String data : tableData) {
   <td valign="middle">
     <%= param %>
   </td>
+  <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
+    <td colspan="7" class="divider" style="border-top: none"></td>
+  </tr> 
 
 <%  
 }
