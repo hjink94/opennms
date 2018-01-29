@@ -685,6 +685,7 @@ String param = "";
 for(String data : tableData) {
 
 for(int j = 0; j < eventParameters.size(); j++) {
+param = "";
 OnmsEventParameter eventParam = eventParameters.get(j);
 
 if(eventParam.getName().equalsIgnoreCase(data)) {
