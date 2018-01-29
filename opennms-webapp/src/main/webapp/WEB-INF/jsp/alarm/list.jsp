@@ -30,7 +30,7 @@
  --%>
 
  <%@page language="java" contentType="text/html" session="true" %>
- 
+
  <%@page import="org.opennms.core.utils.InetAddressUtils" %>
  <%@page import="org.opennms.core.utils.WebSecurityUtils" %>
  <%@page import="org.opennms.netmgt.model.OnmsAlarm" %>
@@ -52,6 +52,11 @@
  <%@page import="org.opennms.web.tags.select.FilterFavoriteSelectTagHandler" %>
  <%@page import="java.util.ArrayList" %>
  <%@page import="java.util.List" %>
+ <%@page import="java.io.BufferedReader" %>
+ <%@page import="java.io.File" %>
+ <%@page import="java.io.FileReader" %>
+ <%@page import="java.io.IOException" %>
+ <%@page import="java.util.HashMap" %>
  <%@page import="org.opennms.web.tags.FavoriteTag" %>
 
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -77,18 +82,18 @@
      OnmsAlarm[] alarms = (OnmsAlarm[])req.getAttribute( "alarms" );
      long alarmCount = req.getAttribute("alarmCount") == null ? -1 : (Long)req.getAttribute("alarmCount");
      NormalizedQueryParameters parms = (NormalizedQueryParameters)req.getAttribute( "parms" );
-     
+
     // show unacknowledged alarms as flashing alarms
      String unAckFlashStr = System.getProperty("opennms.alarmlist.unackflash");
      boolean unAckFlash = (unAckFlashStr == null) ? false : "true".equals(unAckFlashStr.trim());
      if(unAckFlash) parms.setAckType(NormalizedAcknowledgeType.BOTH);
-     
+
      FilterCallback callback = (AlarmFilterCallback) req.getAttribute("callback");
 
      if( alarms == null || parms == null ) {
      throw new ServletException( "Missing either the alarms or parms request attribute." );
    }
-   
+
     //Make 'action' the opposite of the current acknowledgement state
    String action = AcknowledgeType.ACKNOWLEDGED.getShortName();
    if (parms.getAckType() != null && parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType())) {
@@ -103,7 +108,7 @@
  pageContext.setAttribute("addBeforeFilter", "<i class=\"fa fa-toggle-right\"></i>");
  pageContext.setAttribute("addAfterFilter", "<i class=\"fa fa-toggle-left\"></i>");
  pageContext.setAttribute("filterFavoriteSelectTagHandler", new FilterFavoriteSelectTagHandler("All Alarms"));
- 
+
     // get sound constants from session, request or opennms.properties
  String soundEnabledStr = System.getProperty("opennms.alarmlist.sound.enable");
  boolean soundEnabled = (soundEnabledStr == null) ? false : "true".equals(soundEnabledStr.trim());
@@ -202,14 +207,14 @@ function submitForm(anAction)
 {
   var isChecked = false
   var numChecked = 0;
-  
+
         // Decide to which servlet we will submit
         if (anAction == "clear" || anAction == "escalate") {
         document.alarm_action_form.action = "alarm/changeSeverity";
       } else if (anAction == "acknowledge" || anAction == "unacknowledge") {
       document.alarm_action_form.action = "alarm/acknowledge";
     }
-    
+
         // Decide what our action should be
         if (anAction == "escalate") {
         document.alarm_action_form.actionCode.value = "<%=AlarmSeverityChangeController.ESCALATE_ACTION%>";
@@ -232,7 +237,7 @@ if (document.alarm_action_form.alarm.length)
               numChecked+=1;
             }
           }
-          
+
           if (isChecked && document.alarm_action_form.multiple)
           {
           if (numChecked == parseInt(document.alarm_action_form.alarm.length)) 
@@ -338,7 +343,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
           <option value="<%= makeLimitLink(callback, parms, favorite, 100) %>" ${(parms.getLimit() == 100) ? 'selected' : ''}>100</option>
           <option value="<%= makeLimitLink(callback, parms, favorite, 500) %>" ${(parms.getLimit() == 500) ? 'selected' : ''}>500</option>
           </select>
-          
+
           <% if(soundEnabled){ %>
           <select class="form-control pull-right" onchange="location = this.value;">
           <option value="<%= makeAlarmSoundLink(callback,  parms, favorite,"off") %>" <% out.write("off".equals(alarmSoundStatusStr) ? "selected" : ""); %>> Sound off</option>
@@ -472,11 +477,37 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
 
       <!-- ##### TABLE ROW LIST IMPLEMENTED HERE ##### -->
       <%
+      BufferedReader reader = null;
+      HashMap<String, String> map  = new HashMap<>();
+
+      try {
+        File file = new File("/root/opennms/opennms-webapp/src/main/webapp/WEB-INF/jsp/alarm/test.txt");
+        reader = new BufferedReader(new FileReader(file));
+
+        String line;
+
+        while((line = reader.readLine()) != null) {
+          String[] keyValue = line.split(",");
+          map.put(keyValue[0], keyValue[1]);
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      } finally {
+        try {
+          reader.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+
       ArrayList<String> tableRows = new ArrayList<>();
-      tableRows.add("This");
-      tableRows.add("Is");
-      tableRows.add("A");
-      tableRows.add("Test");
+      ArrayList<String> tableData = new ArrayList<>();
+
+      for(String key : map.keySet()) {
+        tableRows.add(key);
+        tableData.add(map.get(key));
+      }
+
       %>
 
       <th width="2%">
@@ -497,7 +528,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
         /
         <%=this.makeSortLink(callback, parms, SortStyle.FIRSTEVENTTIME,  SortStyle.REVERSE_FIRSTEVENTTIME,  "firsteventtime",  "First Event Time", favorite  )%>
       </th>
-      <th width="8%">
+<!--       <th width="8%">
         <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Source", favorite  )%>
       </th>
       <th width="8%">
@@ -505,7 +536,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
       </th>
       <th width="8%">
         <%=this.makeSortLink(callback, parms, SortStyle.LOCATION,  SortStyle.REVERSE_LOCATION,  "location",  "Metric", favorite  )%>
-      </th>              
+      </th>   -->            
       <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
       <th>
         <%=this.makeSortLink(callback, parms, SortStyle.ACKUSER,  SortStyle.REVERSE_ACKUSER,  "ackuser",  "Acknowledged By", favorite  )%>
@@ -534,7 +565,7 @@ pageContext.setAttribute("alarm", alarms[i]);
 
 <% if(unAckFlash){ // flash unacknowledged alarms %>
 <tr class="severity-<%=alarms[i].getSeverity().getLabel()%> <%=alarms[i].isAcknowledged() ? "" : "blink_text"%>">
-  
+
   <% if( req.isUserInRole( Authentication.ROLE_ADMIN ) || !req.isUserInRole( Authentication.ROLE_READONLY ) ) { %>
   <td class="divider" valign="middle" rowspan="<%= ("long".equals(request.getParameter("display"))? 2:1) %>">
     <nobr>
@@ -550,7 +581,7 @@ pageContext.setAttribute("alarm", alarms[i]);
       <% } %>
       <% } %>
     </td>
-    
+
     <% } else { // normal behaviour %>
     <tr class="severity-<%=alarms[i].getSeverity().getLabel()%> ">
 
@@ -648,11 +679,6 @@ pageContext.setAttribute("alarm", alarms[i]);
 
 <!-- ##### TABLE DATA LIST IMPLEMENTED HERE ##### -->
 <%
-ArrayList<String> tableData = new ArrayList<>();
-tableData.add("source");
-tableData.add("resource");
-tableData.add("metric");
-
 List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters();
 String param = "";
 
@@ -855,7 +881,7 @@ public String makeAlarmSoundLink(FilterCallback callback, NormalizedQueryParamet
         return urlStr;
       }
 
-      
+
       public String alarmSound(OnmsAlarm onmsAlarm, HttpSession session, boolean soundOnEvent ){
 
         // added this section to fire when a new alarm arrives
