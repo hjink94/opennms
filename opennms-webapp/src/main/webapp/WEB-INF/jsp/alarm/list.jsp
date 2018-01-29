@@ -481,7 +481,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
       HashMap<String, String> map  = new HashMap<>();
 
       try {
-        File file = new File("jetty-webapps/opennms/WEB-INF/jsp/alarm/test.txt");
+        File file = new File("jetty-webapps/opennms/WEB-INF/jsp/alarm/config");
         out.println("Working Directory: " + System.getProperty("user.dir"));
         reader = new BufferedReader(new FileReader(file));
 
