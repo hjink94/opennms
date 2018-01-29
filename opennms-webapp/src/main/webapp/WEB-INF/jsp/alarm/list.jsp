@@ -698,10 +698,6 @@ for(String data : tableData) {
   <td valign="middle">
     <%= param %>
   </td>
-  <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
-    <td colspan="7" class="divider" style="border-top: none"></td>
-  </tr> 
-
 <%  
 }
 %>
@@ -729,7 +725,7 @@ if (soundOn) out.write(this.alarmSound(alarms[i], session, soundOnEvent));
 </tr>
 <c:if test="${param.display == 'long'}">
 <tr class="severity-<%=alarms[i].getSeverity().getLabel()%>">
-  <td colspan="7" class="divider" style="border-top: none"></td>
+  <td colspan="10" class="divider" style="border-top: none"></td>
 </tr> 
 </c:if>
 <% } /*end for*/%>
