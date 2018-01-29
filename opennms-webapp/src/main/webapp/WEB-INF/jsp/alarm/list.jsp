@@ -482,6 +482,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
 
       try {
         File file = new File("/root/opennms/opennms-webapp/src/main/webapp/WEB-INF/jsp/alarm/test.txt");
+        out.println("Working Directory: " + System.getProperty("user.dir"));
         reader = new BufferedReader(new FileReader(file));
 
         String line;
