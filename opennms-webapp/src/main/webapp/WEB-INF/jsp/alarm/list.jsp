@@ -481,7 +481,7 @@ window.location.href = "<%=req.getContextPath()%>/${alarmListLink}&favoriteId=" 
       HashMap<String, String> map  = new HashMap<>();
 
       try {
-        File file = new File("test.txt");
+        File file = new File("./test.txt");
         reader = new BufferedReader(new FileReader(file));
 
         String line;
