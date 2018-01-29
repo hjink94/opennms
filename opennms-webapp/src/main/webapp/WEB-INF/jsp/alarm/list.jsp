@@ -701,10 +701,6 @@ param = eventParam.getValue();
 }
 %>
 
-<td valign="middle">
-  This should also appear
-</td>
-
 <% if ( parms.getAckType().equals(AcknowledgeType.ACKNOWLEDGED.toNormalizedAcknowledgeType()) ) { %>
 </td>
 <td>
