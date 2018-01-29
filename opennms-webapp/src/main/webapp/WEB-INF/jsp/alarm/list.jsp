@@ -683,20 +683,20 @@ List<OnmsEventParameter> eventParameters = alarms[i].getEventParameters();
 String param = "";
 
 for(String data : tableData) {
+  param = "";
 
-for(int j = 0; j < eventParameters.size(); j++) {
-param = "";
-OnmsEventParameter eventParam = eventParameters.get(j);
+  for(int j = 0; j < eventParameters.size(); j++) {
+    OnmsEventParameter eventParam = eventParameters.get(j);
 
-if(eventParam.getName().equalsIgnoreCase(data)) {
-param = eventParam.getValue();
-}
-} 
-%>
+    if(eventParam.getName().equalsIgnoreCase(data)) {
+      param = eventParam.getValue();
+    }
+  } 
+  %>
 
-<td valign="middle">
-  <%= param %>
-</td>
+  <td valign="middle">
+    <%= param %>
+  </td>
 
 <%  
 }
