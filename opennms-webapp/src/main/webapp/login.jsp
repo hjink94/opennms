@@ -56,7 +56,7 @@
   <div class="col-md-6 col-centered">
     <form class="form-horizontal" role="form" action="<c:url value='j_spring_security_check'/>" method="post">
       <div class="form-group">
-        <label for="input_j_username" class="col-sm-4 control-label">Wowie Welcome to Harrison's OpenNMS</label>
+        <label for="input_j_username" class="col-sm-4 control-label">Username</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" id="input_j_username" name="j_username"
             <%-- This is deprecated and requires a custom AuthenticationFailureHandler to function properly --%>
@@ -66,9 +66,9 @@
       </div>
 
       <div class="form-group">
-        <label for="j_password" class="col-sm-4 control-label">Gimme your filthy Password</label>
+        <label for="j_password" class="col-sm-4 control-label">Password</label>
         <div class="col-sm-8">
-          <input type="password" class="form-control" id="input_j_password" name="j_password" placeholder="Gimme your Password">
+          <input type="password" class="form-control" id="input_j_password" name="j_password" placeholder="Password">
         </div>
       </div>
 
